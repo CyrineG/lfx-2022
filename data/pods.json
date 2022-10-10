@@ -1,0 +1,385 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2022-10-10T13:24:32Z",
+                "generateName": "todo-proxy-lab-5f54854475-",
+                "labels": {
+                    "app": "todo-proxy-lab",
+                    "pod-template-hash": "5f54854475"
+                },
+                "name": "todo-proxy-lab-5f54854475-b7cfz",
+                "namespace": "test",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "todo-proxy-lab-5f54854475",
+                        "uid": "23bb2e73-fd74-4252-a401-9a4d6d72dc6b"
+                    }
+                ],
+                "resourceVersion": "1170",
+                "uid": "e0cae130-0758-485a-a2a9-9b475b35de34"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "nginx:1.17-alpine",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "nginx",
+                        "ports": [
+                            {
+                                "containerPort": 80,
+                                "name": "http",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/nginx/",
+                                "name": "config",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/data/nginx/cache",
+                                "name": "cache-volume"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-f4hkd",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kind-control-plane",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "todo-proxy-lab-configmap"
+                        },
+                        "name": "config"
+                    },
+                    {
+                        "name": "cache-volume",
+                        "persistentVolumeClaim": {
+                            "claimName": "todo-proxy-lab-pvc"
+                        }
+                    },
+                    {
+                        "name": "kube-api-access-f4hkd",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "message": "containers with unready status: [nginx]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "message": "containers with unready status: [nginx]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "nginx:1.17-alpine",
+                        "imageID": "",
+                        "lastState": {},
+                        "name": "nginx",
+                        "ready": false,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "reason": "ContainerCreating"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "172.18.0.2",
+                "phase": "Pending",
+                "qosClass": "BestEffort",
+                "startTime": "2022-10-10T13:24:37Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2022-10-10T13:24:32Z",
+                "generateName": "todo-web-lab-5d5fb5df78-",
+                "labels": {
+                    "app": "todo-web-lab",
+                    "pod-template-hash": "5d5fb5df78"
+                },
+                "name": "todo-web-lab-5d5fb5df78-mzlbq",
+                "namespace": "test",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "ReplicaSet",
+                        "name": "todo-web-lab-5d5fb5df78",
+                        "uid": "ee97ea2c-5fbd-4a6c-a175-d452467ca2ec"
+                    }
+                ],
+                "resourceVersion": "1188",
+                "uid": "6bb7964f-121e-46bb-acc8-865264479df9"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "Database__Provider",
+                                "value": "Sqlite"
+                            },
+                            {
+                                "name": "ConnectionStrings__ToDoDb",
+                                "value": "Filename=/data/todo-list-lab.db"
+                            }
+                        ],
+                        "image": "kiamol/ch04-todo-list",
+                        "imagePullPolicy": "Always",
+                        "name": "web",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/data",
+                                "name": "data"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-7kfsz",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "kind-control-plane",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "data",
+                        "persistentVolumeClaim": {
+                            "claimName": "todo-web-lab-pvc"
+                        }
+                    },
+                    {
+                        "name": "kube-api-access-7kfsz",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:42Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:42Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2022-10-10T13:24:37Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://b7687ce7439f3888766f26a82306b4a567e5f8bde08625bd997772ecf16a683a",
+                        "image": "docker.io/kiamol/ch04-todo-list:latest",
+                        "imageID": "docker.io/kiamol/ch04-todo-list@sha256:8e754b802694f90c5040e3ce1ddac3f65107cb223ebfa972b499f1e8b72faaba",
+                        "lastState": {},
+                        "name": "web",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2022-10-10T13:24:41Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "172.18.0.2",
+                "phase": "Running",
+                "podIP": "10.244.0.12",
+                "podIPs": [
+                    {
+                        "ip": "10.244.0.12"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2022-10-10T13:24:37Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

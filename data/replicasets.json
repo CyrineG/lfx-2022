@@ -1,0 +1,210 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-10-10T13:24:32Z",
+                "generation": 1,
+                "labels": {
+                    "app": "todo-proxy-lab",
+                    "pod-template-hash": "5f54854475"
+                },
+                "name": "todo-proxy-lab-5f54854475",
+                "namespace": "test",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "todo-proxy-lab",
+                        "uid": "48bd5897-1500-4234-9fc5-ae9d4017869a"
+                    }
+                ],
+                "resourceVersion": "1118",
+                "uid": "23bb2e73-fd74-4252-a401-9a4d6d72dc6b"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "todo-proxy-lab",
+                        "pod-template-hash": "5f54854475"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "todo-proxy-lab",
+                            "pod-template-hash": "5f54854475"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx:1.17-alpine",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "nginx",
+                                "ports": [
+                                    {
+                                        "containerPort": 80,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/nginx/",
+                                        "name": "config",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/data/nginx/cache",
+                                        "name": "cache-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "todo-proxy-lab-configmap"
+                                },
+                                "name": "config"
+                            },
+                            {
+                                "name": "cache-volume",
+                                "persistentVolumeClaim": {
+                                    "claimName": "todo-proxy-lab-pvc"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "replicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/desired-replicas": "1",
+                    "deployment.kubernetes.io/max-replicas": "2",
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2022-10-10T13:24:32Z",
+                "generation": 1,
+                "labels": {
+                    "app": "todo-web-lab",
+                    "pod-template-hash": "5d5fb5df78"
+                },
+                "name": "todo-web-lab-5d5fb5df78",
+                "namespace": "test",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "Deployment",
+                        "name": "todo-web-lab",
+                        "uid": "d16bcd8c-cfb7-4fcd-ba49-9c91098823f6"
+                    }
+                ],
+                "resourceVersion": "1189",
+                "uid": "ee97ea2c-5fbd-4a6c-a175-d452467ca2ec"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "app": "todo-web-lab",
+                        "pod-template-hash": "5d5fb5df78"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "todo-web-lab",
+                            "pod-template-hash": "5d5fb5df78"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "Database__Provider",
+                                        "value": "Sqlite"
+                                    },
+                                    {
+                                        "name": "ConnectionStrings__ToDoDb",
+                                        "value": "Filename=/data/todo-list-lab.db"
+                                    }
+                                ],
+                                "image": "kiamol/ch04-todo-list",
+                                "imagePullPolicy": "Always",
+                                "name": "web",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/data",
+                                        "name": "data"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "name": "data",
+                                "persistentVolumeClaim": {
+                                    "claimName": "todo-web-lab-pvc"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "fullyLabeledReplicas": 1,
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
