@@ -78,7 +78,12 @@ kubernetes-resources:kind rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label
 kubernetes-resources:label rdf:type owl:Class ;
+                           rdfs:subClassOf kubernetes-resources:metadata ;
                            owl:disjointWith kubernetes-resources:resource .
+
+
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#metadata
+kubernetes-resources:metadata rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod
