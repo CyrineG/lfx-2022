@@ -1,211 +1,137 @@
-<?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#"
-     xml:base="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
-     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
-     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
-     xmlns:kubernetes-resources="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources"/>
-    
+@prefix : <http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix kubernetes-resources: <http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#> .
+@base <http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources> .
+
+<http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotation properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+#################################################################
+#    Object Properties
+#################################################################
 
-    
-
-
-    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
-
-    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasKind
+kubernetes-resources:hasKind rdf:type owl:ObjectProperty ,
+                                      owl:FunctionalProperty ;
+                             rdfs:domain kubernetes-resources:resource ;
+                             rdfs:range kubernetes-resources:kind .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel
+kubernetes-resources:hasLabel rdf:type owl:ObjectProperty ,
+                                       owl:AsymmetricProperty ;
+                              rdfs:domain kubernetes-resources:resource ;
+                              rdfs:range kubernetes-resources:label .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasKind -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasKind">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#kind"/>
-    </owl:ObjectProperty>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasPod
+kubernetes-resources:hasPod rdf:type owl:ObjectProperty ,
+                                     owl:InverseFunctionalProperty ,
+                                     owl:AsymmetricProperty ;
+                            rdfs:domain kubernetes-resources:replicaset ;
+                            rdfs:range kubernetes-resources:pod .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel -->
+#################################################################
+#    Data properties
+#################################################################
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasPod -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasPod">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod"/>
-    </owl:ObjectProperty>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel
+kubernetes-resources:hasLabel rdf:type owl:DatatypeProperty ,
+                                       owl:FunctionalProperty ;
+                              rdfs:range xsd:string .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Data properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue
+kubernetes-resources:hasValue rdf:type owl:DatatypeProperty ,
+                                       owl:FunctionalProperty ;
+                              rdfs:domain [ rdf:type owl:Restriction ;
+                                            owl:onProperty kubernetes-resources:hasLabel ;
+                                            owl:allValuesFrom xsd:string
+                                          ] ;
+                              rdfs:range xsd:string .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue -->
+#################################################################
+#    Classes
+#################################################################
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:domain>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#kind
+kubernetes-resources:kind rdf:type owl:Class ;
+                          owl:disjointWith kubernetes-resources:label ,
+                                           kubernetes-resources:resource .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label
+kubernetes-resources:label rdf:type owl:Class ;
+                           owl:disjointWith kubernetes-resources:resource .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#kind -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#kind">
-        <owl:disjointWith rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label"/>
-        <owl:disjointWith rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-    </owl:Class>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod
+kubernetes-resources:pod rdf:type owl:Class ;
+                         rdfs:subClassOf kubernetes-resources:resource ;
+                         owl:disjointWith kubernetes-resources:replicaset .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label">
-        <owl:disjointWith rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-    </owl:Class>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset
+kubernetes-resources:replicaset rdf:type owl:Class ;
+                                rdfs:subClassOf kubernetes-resources:resource .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-        <owl:disjointWith rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset"/>
-    </owl:Class>
-    
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource
+kubernetes-resources:resource rdf:type owl:Class .
 
 
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset -->
+#################################################################
+#    General axioms
+#################################################################
 
-    <owl:Class rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // General axioms
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </owl:intersectionOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </owl:intersectionOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasValue"/>
-                <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-</rdf:RDF>
+[ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                         owl:onProperty kubernetes-resources:hasLabel ;
+                         owl:allValuesFrom xsd:string
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty kubernetes-resources:hasValue ;
+                         owl:allValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty kubernetes-resources:hasLabel ;
+                    owl:allValuesFrom xsd:string
+                  ]
+] .
 
 
+[ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                         owl:onProperty kubernetes-resources:hasLabel ;
+                         owl:allValuesFrom xsd:string
+                       ]
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty kubernetes-resources:hasValue ;
+                         owl:allValuesFrom xsd:string
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty kubernetes-resources:hasValue ;
+                    owl:allValuesFrom xsd:string
+                  ]
+] .
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
 
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
