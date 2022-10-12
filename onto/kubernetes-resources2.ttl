@@ -21,6 +21,18 @@ swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
 
 
 #################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#uid
+kubernetes-resources:uid rdf:type owl:DatatypeProperty ,
+                                  owl:FunctionalProperty ;
+                         rdfs:domain kubernetes-resources:pod ,
+                                     kubernetes-resources:replicaset ;
+                         rdfs:range xsd:string .
+
+
+#################################################################
 #    Classes
 #################################################################
 
