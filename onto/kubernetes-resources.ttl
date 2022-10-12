@@ -24,18 +24,11 @@ swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasKind
-kubernetes-resources:hasKind rdf:type owl:ObjectProperty ,
-                                      owl:FunctionalProperty ;
-                             rdfs:domain kubernetes-resources:resource ;
-                             rdfs:range kubernetes-resources:kind .
-
-
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel
 kubernetes-resources:hasLabel rdf:type owl:ObjectProperty ,
+                                       owl:FunctionalProperty ,
                                        owl:AsymmetricProperty ;
-                              rdfs:domain kubernetes-resources:resource ;
-                              rdfs:range kubernetes-resources:label .
+                              rdfs:domain kubernetes-resources:resource .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasPod
@@ -49,6 +42,21 @@ kubernetes-resources:hasPod rdf:type owl:ObjectProperty ,
 #################################################################
 #    Data properties
 #################################################################
+
+###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasKind
+kubernetes-resources:hasKind rdf:type owl:DatatypeProperty ,
+                                      owl:FunctionalProperty ;
+                             rdfs:domain kubernetes-resources:resource ;
+                             rdfs:range [ rdf:type rdfs:Datatype ;
+                                          owl:oneOf [ rdf:type rdf:List ;
+                                                      rdf:first "Pod" ;
+                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                 rdf:first "ReplicaSet" ;
+                                                                 rdf:rest rdf:nil
+                                                               ]
+                                                    ]
+                                        ] .
+
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel
 kubernetes-resources:hasLabel rdf:type owl:DatatypeProperty ,
@@ -70,35 +78,55 @@ kubernetes-resources:hasValue rdf:type owl:DatatypeProperty ,
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#kind
-kubernetes-resources:kind rdf:type owl:Class ;
-                          owl:disjointWith kubernetes-resources:label ,
-                                           kubernetes-resources:resource .
-
-
-###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#label
-kubernetes-resources:label rdf:type owl:Class ;
-                           rdfs:subClassOf kubernetes-resources:metadata ;
-                           owl:disjointWith kubernetes-resources:resource .
-
-
-###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#metadata
-kubernetes-resources:metadata rdf:type owl:Class .
-
-
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod
 kubernetes-resources:pod rdf:type owl:Class ;
-                         rdfs:subClassOf kubernetes-resources:resource ;
+                         owl:equivalentClass [ owl:intersectionOf ( kubernetes-resources:resource
+                                                                    [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty kubernetes-resources:hasKind ;
+                                                                      owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                           owl:oneOf [ rdf:type rdf:List ;
+                                                                                                       rdf:first "Pod" ;
+                                                                                                       rdf:rest rdf:nil
+                                                                                                     ]
+                                                                                         ]
+                                                                    ]
+                                                                  ) ;
+                                               rdf:type owl:Class
+                                             ] ;
                          owl:disjointWith kubernetes-resources:replicaset .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset
 kubernetes-resources:replicaset rdf:type owl:Class ;
-                                rdfs:subClassOf kubernetes-resources:resource .
+                                owl:equivalentClass [ owl:intersectionOf ( kubernetes-resources:resource
+                                                                           [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty kubernetes-resources:hasKind ;
+                                                                             owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                  owl:oneOf [ rdf:type rdf:List ;
+                                                                                                              rdf:first "ReplicaSet" ;
+                                                                                                              rdf:rest rdf:nil
+                                                                                                            ]
+                                                                                                ]
+                                                                           ]
+                                                                         ) ;
+                                                      rdf:type owl:Class
+                                                    ] .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource
-kubernetes-resources:resource rdf:type owl:Class .
+kubernetes-resources:resource rdf:type owl:Class ;
+                              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                owl:onProperty kubernetes-resources:hasKind ;
+                                                owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                     owl:oneOf [ rdf:type rdf:List ;
+                                                                                 rdf:first "Pod" ;
+                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                            rdf:first "ReplicaSet" ;
+                                                                                            rdf:rest rdf:nil
+                                                                                          ]
+                                                                               ]
+                                                                   ]
+                                              ] .
 
 
 #################################################################
