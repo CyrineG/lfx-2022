@@ -27,8 +27,7 @@ swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasLabel
 kubernetes-resources:hasLabel rdf:type owl:ObjectProperty ,
                                        owl:FunctionalProperty ,
-                                       owl:AsymmetricProperty ;
-                              rdfs:domain kubernetes-resources:resource .
+                                       owl:AsymmetricProperty .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#hasPod
@@ -65,17 +64,11 @@ kubernetes-resources:hasValue rdf:type owl:DatatypeProperty ,
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#pod
 kubernetes-resources:pod rdf:type owl:Class ;
-                         rdfs:subClassOf kubernetes-resources:resource ;
                          owl:disjointWith kubernetes-resources:replicaset .
 
 
 ###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#replicaset
-kubernetes-resources:replicaset rdf:type owl:Class ;
-                                rdfs:subClassOf kubernetes-resources:resource .
-
-
-###  http://www.semanticweb.org/cyrine/ontologies/2022/8/kubernetes-resources#resource
-kubernetes-resources:resource rdf:type owl:Class .
+kubernetes-resources:replicaset rdf:type owl:Class .
 
 
 #################################################################
